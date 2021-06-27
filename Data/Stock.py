@@ -58,12 +58,36 @@ print(df)
 
 # 获取周K（当周的）：开盘价（当周第一天）、收盘价（当周最后一天）、最高价（当周）、最低价（当周）
 df_week=pd.DataFrame()
-df_week['开盘[open]']=df['open'].resample('M').first() # 周k W 月k M
-df_week['收盘[close]']=df['close'].resample('M').last()
-df_week['最高[high]']=df['high'].resample('M').max()
-df_week['最低[low]']=df['low'].resample('M').min()
+df_week['开盘']=df['open'].resample('M').first() # open 周k W 月k M
+df_week['收盘']=df['close'].resample('M').last() # close
+df_week['最高']=df['high'].resample('M').max() # high
+df_week['最低']=df['low'].resample('M').min() # low
 
 # 汇总统计：统计一下月成交量、成交额（sum）
-df_week['成交量[volume(sum)]']=df['volume'].resample('M').sum()
-df_week['成交额[money(sum)]']=df['money'].resample('M').sum()
+df_week['成交量']=df['volume'].resample('M').sum() # volume(sum)
+df_week['成交额']=df['money'].resample('M').sum() # money(sum)
+print(df_week)
+
+'''作业2'''
+# 设置行列不忽略
+pd.set_option('display.max_rows',100000)
+pd.set_option('display.max_columns',10)
+
+# 转换周期：日K转换为周K
+# df = get_price('000001.XSHE',count=10,end_date='2021-06-26', frequency='daily',panel=False) # 获取日K
+df = get_price('000001.XSHE',start_date='2020-01-01',end_date='2020-12-31', frequency='daily',panel=False) # 获取日K
+df['weekday']=df.index.weekday
+
+print(df)
+
+# 获取周K（当周的）：开盘价（当周第一天）、收盘价（当周最后一天）、最高价（当周）、最低价（当周）
+df_week=pd.DataFrame()
+df_week['开盘']=df['open'].resample('M').first() # open 周k W 月k M
+df_week['收盘']=df['close'].resample('M').last() # close
+df_week['最高']=df['high'].resample('M').max() # high
+df_week['最低']=df['low'].resample('M').min() # low
+
+# 汇总统计：统计一下月成交量、成交额（sum）
+df_week['成交量']=df['volume'].resample('M').sum() # volume(sum)
+df_week['成交额']=df['money'].resample('M').sum() # money(sum)
 print(df_week)
