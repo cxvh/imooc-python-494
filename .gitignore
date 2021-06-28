@@ -8,3 +8,4 @@ public/
 .deploy_git/
 .deploy*/
 .idea/
+data/
