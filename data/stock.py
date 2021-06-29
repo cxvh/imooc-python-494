@@ -7,6 +7,79 @@ auth('13282329141', 'qQ123456')  # 账号是申请时所填写的手机号；密
 # 上海证券交易所	.XSHG	600519.XSHG	贵州茅台
 # 深圳证券交易所	.XSHE	000001.XSHE	平安银行
 
+# 设置行列不忽略
+pd.set_option('display.max_rows',100000)
+pd.set_option('display.max_columns',1000)
+
+def get_stock_list():
+    """
+    获取所有A股股票列表
+    :return:
+    """
+    stock_list=list(get_all_securities(['stock']).index)
+    return stock_list
+
+def get_single_price(code,time_freq,stat_date,end_date):
+    """
+    获取单个股票行情数据
+    :param code:
+    :param time_freq:
+    :param stat_date:
+    :param end_date:
+    :return:
+    """
+    data = get_price(code, stat_date=stat_date,end_date=end_date, frequency=time_freq,panel=False)
+    return data
+
+def export_data(data,filename,type)
+    """
+    导出股票相关数据
+    :param data: 
+    :param filename: 
+    :param type: 股票数据类型，可以是->price、finance
+    :return: 
+    """
+    file_root='e:/learn/imooc/python/pythonProject/data/'+type+'/'+filename+'.csv'
+    data.to_csv(file_root)
+    print('已经成功存储至：',file_root)
+
+def transfer_price_freq(data,time_freq):
+    """
+    转换股票行情周期：开盘价（周期第一天）、收盘价（周期最后一天）、最高价（周期内）、最低价（周期内）
+    :param data:
+    :param time_freq:
+    :return:
+    """
+    df_trans = pd.DataFrame()
+    df_trans['open'] = data['open'].resample(time_freq).first()  # 周k W 月k M
+    df_trans['close'] = data['close'].resample(time_freq).last()
+    df_trans['high'] = data['high'].resample(time_freq).max()
+    df_trans['low'] = data['low'].resample(time_freq).min()
+    return df_trans
+
+def get_single_finance(code,date,statDate):
+    """
+    获取单个股票财务指标
+    :param code:
+    :param date:
+    :param statDate:
+    :return:
+    """
+    data = get_fundamentals(query(indicator).filter(valuation.code == code),date=date,statDate=statDate)  # 获取财务指标数据 bank_indicator（银行业）security_indicator（券商）insurance_indicator（保险）
+    return data
+
+def get_single_finance(code,date,statDate):
+    """
+    获取单个股票估值指标
+    :param code:
+    :param date:
+    :param statDate:
+    :return:
+    """
+    data = get_fundamentals(query(valuation).filter(valuation.code == code), date=date,statDate=statDate)
+    return data
+
+
 # 获取所有 A股 的行情数据
 # stocks = list(get_all_securities(['stock']).index)
 
@@ -190,3 +263,5 @@ print('第二题：市值 / 母公司净利润')
 print(df_202)
 '''
 
+
+'''实时更新股票数据'''
