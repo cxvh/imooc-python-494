@@ -14,10 +14,6 @@ pd.set_option('display.max_columns',1000)
 # 初始化环境变量
 data_root='e:/learn/imooc/python/pythonProject/data/'
 
-def get_all_securities(param):
-    pass
-
-
 def get_stock_list():
     """
     获取所有A股股票列表
