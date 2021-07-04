@@ -31,6 +31,10 @@ def get_single_price(code,time_freq,start_date,end_date):
     :param end_date:
     :return:
     """
+    # 如果 start_date=None，默认为从上市日期开始
+    if start_date is None:
+        start_date = get_security_info(code).start_date
+    # 获取行情数据
     data = get_price(code, start_date=start_date,end_date=end_date, frequency=time_freq,panel=False)
     return data
 
