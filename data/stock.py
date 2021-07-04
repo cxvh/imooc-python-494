@@ -11,6 +11,13 @@ auth('13282329141', 'qQ123456')  # 账号是申请时所填写的手机号；密
 pd.set_option('display.max_rows',100000)
 pd.set_option('display.max_columns',1000)
 
+# 初始化环境变量
+data_root='e:/learn/imooc/python/pythonProject/data/'
+
+def get_all_securities(param):
+    pass
+
+
 def get_stock_list():
     """
     获取所有A股股票列表
@@ -19,19 +26,19 @@ def get_stock_list():
     stock_list=list(get_all_securities(['stock']).index)
     return stock_list
 
-def get_single_price(code,time_freq,stat_date,end_date):
+def get_single_price(code,time_freq,start_date,end_date):
     """
     获取单个股票行情数据
     :param code:
     :param time_freq:
-    :param stat_date:
+    :param start_date:
     :param end_date:
     :return:
     """
-    data = get_price(code, stat_date=stat_date,end_date=end_date, frequency=time_freq,panel=False)
+    data = get_price(code, start_date=start_date,end_date=end_date, frequency=time_freq,panel=False)
     return data
 
-def export_data(data,filename,type)
+def export_data(data,filename,type):
     """
     导出股票相关数据
     :param data: 
@@ -39,9 +46,19 @@ def export_data(data,filename,type)
     :param type: 股票数据类型，可以是->price、finance
     :return: 
     """
-    file_root='e:/learn/imooc/python/pythonProject/data/'+type+'/'+filename+'.csv'
+    file_root=data_root+type+'/'+filename+'.csv'
+    data.index.names=['date']
     data.to_csv(file_root)
     print('已经成功存储至：',file_root)
+
+def get_csv_data(code,type):
+    """
+    :param code:
+    :param type:
+    :return:
+    """
+    file_root=data_root+type+'/'+code+'.csv'
+    return pd.read_csv(file_root)
 
 def transfer_price_freq(data,time_freq):
     """
