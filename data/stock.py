@@ -38,17 +38,21 @@ def get_single_price(code,time_freq,start_date,end_date):
     data = get_price(code, start_date=start_date,end_date=end_date, frequency=time_freq,panel=False)
     return data
 
-def export_data(data,filename,type):
+def export_data(data,filename,type,mode='w'):
     """
     导出股票相关数据
     :param data: 
     :param filename: 
     :param type: 股票数据类型，可以是->price、finance
+    :param mode: 默认w->只能写入，a->追加
     :return: 
     """
     file_root=data_root+type+'/'+filename+'.csv'
     data.index.names=['date']
-    data.to_csv(file_root)
+    header=True
+    if mode=='a':
+        header=False
+    data.to_csv(file_root,mode=mode,header=header)
     print('已经成功存储至：',file_root)
 
 def get_csv_data(code,type):
