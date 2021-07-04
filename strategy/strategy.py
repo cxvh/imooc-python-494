@@ -66,6 +66,7 @@ def week_period_strategy(code,time_freq,start_date,end_date):
     return data;
 
 if __name__ == '__main__':
+    '''
     df=week_period_strategy(code,time_freq,start_date,end_date)
     print(df)
     print('-----------------------------------------------------------')
@@ -73,4 +74,24 @@ if __name__ == '__main__':
     print('-----------------------------------------------------------')
     # df['profit_pct'].plot()
     df['cum_profit'].plot() # 收益率
+    plt.show()
+    '''
+    code_mt='600519.XSHG' # 贵州茅台
+    code_pa='000001.XSHE' # 平安银行
+    code_pf='600000.XSHG' # 浦发银行
+    start_date='2019-01-01'
+    end_date='2020-01-01'
+    data_mt=week_period_strategy(code_mt, time_freq, start_date, end_date)
+    data_pa=week_period_strategy(code_pa, time_freq, start_date, end_date)
+    data_pf=week_period_strategy(code_pf, time_freq, start_date, end_date)
+    print('-----------------------------------------------------------')
+    print('贵州茅台收益率',data_mt.describe()['cum_profit'])
+    print('-----------------------------------------------------------')
+    print('平安银行收益率',data_pa.describe()['cum_profit'])
+    print('-----------------------------------------------------------')
+    print('浦发银行收益率',data_pf.describe()['cum_profit'])
+    print('-----------------------------------------------------------')
+    data_mt['cum_profit'].plot()
+    data_pa['cum_profit'].plot()
+    data_pf['cum_profit'].plot()
     plt.show()
