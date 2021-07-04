@@ -6,3 +6,6 @@
   - [https://github.com/cxvh/imooc-python-494/tree/task2.10](https://github.com/cxvh/imooc-python-494/tree/task2.10) 
 - 2-12 第二章章节作业
   - [https://github.com/cxvh/imooc-python-494/tree/task2.10](https://github.com/cxvh/imooc-python-494/tree/task2.12)  
+- 3-8 【作业】：比较3只股票的累计收益率，并进行可视化
+  - [https://github.com/cxvh/imooc-python-494/tree/task3.8](https://github.com/cxvh/imooc-python-494/tree/task3.8)
+	
