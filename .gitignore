@@ -9,4 +9,4 @@ public/
 .deploy*/
 .idea/
 data/finance/
-data/price/
+data/price/*
